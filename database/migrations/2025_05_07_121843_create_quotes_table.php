@@ -16,7 +16,7 @@ return new class extends Migration
             $table->decimal('quantity_sub-total');
             $table->decimal('vat_total');
             $table->decimal('total');
-            $table->int('product_id');
+            $table->string('product_id');
             $table->timestamps();
         });
     }
