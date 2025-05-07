@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('quotes', function (Blueprint $table) {
             $table->id();
+            $table->decimal('quantity_sub-total');
+            $table->decimal('vat_total');
+            $table->decimal('total');
+            $table->int('product_id');
             $table->timestamps();
         });
     }
