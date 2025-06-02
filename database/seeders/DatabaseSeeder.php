@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $Products = Product::factory(50)->create();
 
         $this->call(UserSeeder::class);
+        $this->call(AdminSeeder::class);
     }
 }
