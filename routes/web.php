@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// groups all admin routes together and protects them with the middleware only allowing admin to access
+// groups all admin routes together and protects them with the middleware only allowing admin to access TEST
 Route::middleware(['auth', 'admin'])->group(function () {
     // dashboard route - shows the admin dashboard 
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
