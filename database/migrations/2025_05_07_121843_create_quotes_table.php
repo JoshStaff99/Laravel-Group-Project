@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('quotes', function (Blueprint $table) {
             $table->id();
-            $table->decimal('quantity_sub-total');
-            $table->decimal('vat_total');
-            $table->decimal('total');
-            $table->string('product_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Customer reference
+            $table->decimal('subtotal', 10, 2)->default(0); // Product subtotal
+            $table->decimal('vat_total', 10, 2)->default(0); // VAT value
+            $table->decimal('total', 10, 2)->default(0); // Final total
+            $table->enum('status', ['draft', 'sent', 'accepted'])->default('draft');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('quotes');
