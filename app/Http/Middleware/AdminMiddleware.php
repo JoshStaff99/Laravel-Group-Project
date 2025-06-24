@@ -17,14 +17,15 @@ class AdminMiddleware
      *
 
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
-    {
-    
-     * @param  \Illuminate\Http\Request 
+     * * @param  \Illuminate\Http\Request 
      * @param \Closure
      * @return mixed
      */
+     
+    // public function handle(Request $request, Closure $next): Response
+    // {
+    
+     
     public function handle(Request $request, Closure $next)
     {
         // this checks if the user is logged in, gets the email of the logged in user and checks if the users email exists in the admins table
