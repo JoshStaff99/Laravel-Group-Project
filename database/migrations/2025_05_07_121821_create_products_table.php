@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('quantity');
             $table->decimal('price');
-            $table->string('quote_id');
+            $table->string('quote_id')->nullable();
             $table->timestamps();
         });
     }
