@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuoteController;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('login');
 })->name('login');
 
@@ -18,6 +18,10 @@ Route::get('/dashboard', function () {
     $dashboardType = Auth::user()->is_admin ? 'Admin Dashboard' : 'User Dashboard';
     return view('dashboard', compact('dashboardType'));
 })->middleware('auth')->name('dashboard');
+
+Route::resource('products', ProductController::class);
+
+Route::resource('quotes', ProductController::class);
 
 Route::post('/logout', function () {
     Auth::logout();

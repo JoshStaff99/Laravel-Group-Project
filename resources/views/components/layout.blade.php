@@ -25,8 +25,8 @@
             <a class="navbar-brand" href="#">{{ $dashboardType ?? 'Dashboard' }}</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.products') }}">Products</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.quotes') }}">Quotes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('quotes.index') }}">Quotes</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
             </div>
