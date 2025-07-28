@@ -10,8 +10,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('quote')->paginate(10); //10 products per page // eager load quote
-        return view('products.index', compact('products')); //create product associative array
+        $products = Product::with('quote')->simplePaginate(10); // simple pagination without arrows
+        return view('products.index', compact('products'));
     }
 
     public function create()
