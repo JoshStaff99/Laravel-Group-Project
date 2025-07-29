@@ -22,14 +22,14 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'quantity' => 'required|integer|min:1',
-            'quote_id' => 'required|exists:quotes,id',
-            'price' => 'required|decimal',
+            'quote_id' => 'nullable|exists:quotes,id',
+            'price' => 'required|decimal:0,2',
         ]);
 
-        Product::create($request->all());
+        Product::create($validated);
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
@@ -49,14 +49,15 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'quantity' => 'required|integer|min:1',
-            'quote_id' => 'required|exists:quotes,id',
+            'quote_id' => 'nullable|exists:quotes,id',
+            'price' => 'required|decimal:0,2',
         ]);
 
         $product = Product::findOrFail($id);
-        $product->update($request->all());
+        $product->update($validated);
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }

@@ -1,7 +1,11 @@
 @extends('components.layout')
 
 @section('content')
-    <h1>Products</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Products</h1>
+        <a href="{{ route('products.create') }}" class="btn btn-primary">Create Product</a>
+    </div>
+
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
