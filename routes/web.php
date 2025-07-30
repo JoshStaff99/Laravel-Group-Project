@@ -21,6 +21,7 @@ Route::get('/login', function () {
 // Handle login submission
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+// Dashboard route (admin or user)
 Route::get('/dashboard', function () {
     $user = Auth::user();
 
@@ -28,11 +29,10 @@ Route::get('/dashboard', function () {
         return app(AdminController::class)->dashboard();
     }
 
-    $dashboardType = 'User Dashboard';
-    return view('dashboard', compact('dashboardType'));
+    return app(UserController::class)->dashboard(); // user dashboard logic
 })->middleware('auth')->name('dashboard');
 
-// Logout route (POST only)
+// Logout route
 Route::post('/logout', function () {
     Auth::logout();
     request()->session()->invalidate();
@@ -53,9 +53,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/quotes', [AdminController::class, 'quotes'])->name('admin.quotes');
 });
 
-// Authenticated user routes
+// User routes
 Route::middleware('auth')->group(function () {
     Route::get('/my-quotes', [UserController::class, 'index'])->name('user.quotes.index');
     Route::get('/my-quotes/{id}', [UserController::class, 'show'])->name('user.quotes.show');
-    Route::post('/my-quotes/{id}/accept', [UserController::class, 'accept'])->name('user.quotes.accept');
+    Route::get('/my-quotes/{id}/accept', [UserController::class, 'accept'])->name('user.quotes.accept'); // using GET for simplicity
 });

@@ -7,7 +7,28 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    // Show all quotes belonging to the logged-in customer
+    // User Dashboard
+    public function dashboard()
+    {
+        $userId = Auth::id();
+
+        $assignedQuotes = Quote::where('user_id', $userId)
+                                ->latest()
+                                ->take(5)
+                                ->get();
+
+        $pendingQuotes = Quote::where('user_id', $userId)
+                              ->where('status', 'sent') // waiting for acceptance
+                              ->latest()
+                              ->take(5)
+                              ->get();
+
+        $dashboardType = 'User Dashboard';
+
+        return view('dashboard', compact('assignedQuotes', 'pendingQuotes', 'dashboardType'));
+    }
+
+    // All quotes belonging to the logged-in customer
     public function index()
     {
         $quotes = Quote::where('user_id', Auth::id())->latest()->get();
@@ -31,6 +52,6 @@ class UserController extends Controller
 
         $quote->update(['status' => 'accepted']);
 
-        return view('user.quotes.accepted', compact('quote'));
+        return redirect()->route('dashboard')->with('success', 'Quote accepted successfully.');
     }
 }
