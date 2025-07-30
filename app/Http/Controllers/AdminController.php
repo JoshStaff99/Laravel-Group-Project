@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Product;
+use App\Models\Quote;
 
 use Illuminate\Http\Request;
 
@@ -11,7 +13,10 @@ class AdminController extends Controller
     //////
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $quotes = Quote::latest()->take(5)->get();
+        $products = Product::latest()->take(5)->get();
+
+        return view('dashboard', compact('quotes', 'products'));
     }
 
     //////

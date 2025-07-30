@@ -21,9 +21,14 @@ Route::get('/login', function () {
 // Handle login submission
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-// Dashboard (protected)
 Route::get('/dashboard', function () {
-    $dashboardType = Auth::user()->is_admin ? 'Admin Dashboard' : 'User Dashboard';
+    $user = Auth::user();
+
+    if ($user->role === 'admin') {
+        return app(AdminController::class)->dashboard();
+    }
+
+    $dashboardType = 'User Dashboard';
     return view('dashboard', compact('dashboardType'));
 })->middleware('auth')->name('dashboard');
 

@@ -11,12 +11,7 @@ class QuoteController extends Controller
 {
     public function index()
     {
-        if (Auth::check()) {
-            $dashboardType = Auth::user()->is_admin ? 'Admin Dashboard' : 'User Dashboard';
-        } else {
-            $dashboardType = 'Guest Dashboard';
-        }
-        return view('quotes.index', compact('dashboardType'));
+        return view('quotes.index');
     }
 
     public function create()
