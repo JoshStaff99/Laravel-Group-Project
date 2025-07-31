@@ -14,68 +14,26 @@
         </div>
     @endif
 
-    {{-- Edit Product Form --}}
-    <form action="{{ route('products.update', $product->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+    @include('components.form', [
+        'action' => route('products.update', $product->id),
+        'method' => 'PUT',
+        'model' => $product,
+        'buttonText' => 'Update Product',
+        'fields' => [
+            ['name' => 'name', 'label' => 'Product Name', 'type' => 'text', 'required' => true],
+            ['name' => 'quantity', 'label' => 'Quantity', 'type' => 'number', 'min' => 1, 'required' => true],
+            [
+                'name' => 'quote_id',
+                'label' => 'Quote',
+                'type' => 'select',
+                'required' => true,
+                'options' => $quotes->map(fn($q) => [
+                    'value' => $q->id,
+                    'label' => $q->title ?? 'Quote #' . $q->id,
+                ])->toArray(),
+            ],
+            ['name' => 'price', 'label' => 'Price', 'type' => 'number', 'step' => '0.01', 'required' => true],
+        ]
+    ])
 
-        {{-- Name --}}
-        <div class="form-group">
-            <label for="name">Product Name:</label>
-            <input 
-                type="text" 
-                name="name" 
-                id="name" 
-                class="form-control" 
-                value="{{ old('name', $product->name) }}" 
-                required>
-        </div>
-
-        {{-- Quantity --}}
-        <div class="form-group">
-            <label for="quantity">Quantity:</label>
-            <input 
-                type="number" 
-                name="quantity" 
-                id="quantity" 
-                class="form-control" 
-                value="{{ old('quantity', $product->quantity) }}" 
-                min="1" 
-                required>
-        </div>
-
-        {{-- Quote Selection --}}
-        <div class="form-group">
-            <label for="quote_id">Quote:</label>
-            <select 
-                name="quote_id" 
-                id="quote_id" 
-                class="form-control" 
-                required>
-                <option value="">-- Select Quote --</option>
-                @foreach ($quotes as $quote)
-                    <option 
-                        value="{{ $quote->id }}"
-                        {{ old('quote_id', $product->quote_id) == $quote->id ? 'selected' : '' }}>
-                        {{ $quote->title ?? 'Quote #' . $quote->id }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-        {{-- Price --}}
-        <div class="form-group">
-            <label for="price">Price:</label>
-            <input 
-                type="number" 
-                name="price" 
-                id="price" 
-                class="form-control" 
-                step="0.01" 
-                value="{{ old('price', $product->price) }}" 
-                required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Update Product</button>
-    </form>
 @endsection

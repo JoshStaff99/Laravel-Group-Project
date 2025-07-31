@@ -1,4 +1,4 @@
-@extends('components.layout')
+<x-layout>
 
 @section('content')
     <h1>Create New Product</h1>
@@ -76,4 +76,4 @@
 
         <button type="submit" class="btn btn-primary">Create Product</button>
     </form>
-@endsection
+</x-layout>

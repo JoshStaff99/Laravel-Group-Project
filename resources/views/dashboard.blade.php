@@ -1,8 +1,6 @@
-@extends('components.layout')
-
-@section('content')
+<x-layout>
 <div class="container py-4">
-    <h2 class="mb-4">{{ $dashboardType ?? 'Dashboard' }}</h2>
+    <h2 class="mb-4">{{ ucfirst(Auth::user()->role) }} Dashboard</h2>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -107,4 +105,4 @@
         </div>
     @endif
 </div>
-@endsection
+</x-layout>

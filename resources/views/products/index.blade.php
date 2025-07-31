@@ -1,4 +1,4 @@
-@extends('components.layout')
+<x-layout>
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -44,4 +44,4 @@
     <div class="d-flex justify-content-center">
         {{ $products->links() }}
     </div>
-@endsection
+</x-layout>
